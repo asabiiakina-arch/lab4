@@ -1,0 +1,145 @@
+#include <iostream>
+#include <cmath> 
+using namespace std;
+
+// Прототипи функцій 
+void task_proc3();
+void task_proc50();
+void task_integer10();
+
+// Головна функція 
+int main() {
+    int menu;
+    
+    // Меню для вибору завдання
+    cout << "Виберіть завдання для виконання:" << endl;
+    cout << " Номер 3  - середні значення пар чисел" << endl;
+    cout << "Номер 50 - точки та коло " << endl;
+    cout << "Номер 10 - трицифрове число " << endl;
+    cout << "Введіть номер завдання: ";
+    cin >> menu;
+
+    // Виконання завдання за номером
+    switch (menu) {
+        case 3:
+            task_proc3();
+            break;
+        case 50:
+            task_proc50();
+            break;
+        case 10:
+            task_integer10();
+            break;
+        default:
+            cout << "Неправильний номер завдання! (Доступні: 3, 50, 10)" << endl;
+    }
+
+    cout << "\nПрограма завершила роботу." << endl;
+    return 0;
+}
+
+// ===================== PROC3 =====================
+// Функція обчислення середніх значень пари чисел
+void Mean(double X, double Y, double &AMean, double &GMean) {
+    if (X <= 0 || Y <= 0) {
+        cout << "Помилка: числа повинні бути додатні!" << endl;
+    }
+    // Середнє арифметичне
+    AMean = (X + Y) / 2;
+    // Середнє геометричне
+    GMean = pow(X * Y, 0.5);
+}
+
+// Основна функція завдання proc3
+void task_proc3() {
+    cout << "\n************* PROC3 *****************" << endl;
+    // Введення даних
+    double A, B, C, D;
+    cout << "Введіть A, B, C, D: ";
+    cin >> A >> B >> C >> D;
+
+    double AMean, GMean;
+
+    // Обчислення середніх значень для пари (A, B)
+    cout << "Пара (A, B): ";
+    Mean(A, B, AMean, GMean);
+    cout << "AMean = " << AMean << ", GMean = " << GMean << endl;
+
+    // Обчислення середніх значень для пари (A, C)
+    cout << "Пара (A, C): ";
+    Mean(A, C, AMean, GMean);
+    cout << "AMean = " << AMean << ", GMean = " << GMean << endl;
+
+    // Обчислення середніх значень для пари (A, D)
+    cout << "Пара (A, D): ";
+    Mean(A, D, AMean, GMean);
+    cout << "AMean = " << AMean << ", GMean = " << GMean << endl;
+}
+
+// ===================== PROC50 =====================
+// Функція перевірки чи точка знаходиться всередині кола 
+bool PointInCircle(double x, double y, double xc, double yc, double R) {
+    // Порівнюємо квадрати відстані
+    return ((x - xc)*(x - xc) + (y - yc)*(y - yc) <= R*R);
+}
+
+// Основна функція завдання proc50
+void task_proc50() {
+    cout << "\n************* PROC50 *****************" << endl;
+    // Введення даних
+    double xc, yc, R;
+    double x1, y1, x2, y2, x3, y3;
+
+    // Введення центру кола та радіуса
+    cout << "Введіть центр кола (xc yc) і радіус R: ";
+    cin >> xc >> yc >> R;
+
+    // Введення трьох точок
+    cout << "Введіть три точки (x y): ";
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+
+    // Перевірка кожної точки та вивід результату
+    cout << "Результат перевірки:" << endl;
+    cout << "Точка 1: " << (PointInCircle(x1, y1, xc, yc, R) ? "всередині" : "зовні") << endl;
+    cout << "Точка 2: " << (PointInCircle(x2, y2, xc, yc, R) ? "всередині" : "зовні") << endl;
+    cout << "Точка 3: " << (PointInCircle(x3, y3, xc, yc, R) ? "всередині" : "зовні") << endl;
+}
+
+// ===================== INTEGER10 =====================
+// Функція перевірки правильності введення тризначного числа
+bool in_N(int &N) {
+    cout << "Integer10." << endl;
+    cout << "Введіть тризначне число N = ";
+    cin >> N;
+
+    // Перевірка помилок введення і тризначності числа
+    if (cin.fail() || N < 100 || N > 999)
+        return true;
+    return false;
+}
+
+// Отримати останню цифру (одиниці)
+int get_last_digit(int N) { return N % 10; }
+
+// Отримати середню цифру (десятки)
+int get_middle_digit(int N) { return (N / 10) % 10; }
+
+// Вивід результату для integer10
+void out_res(int last, int middle) {
+    cout << "Остання цифра (одиниці) = " << last << endl;
+    cout << "Середня цифра (десятки) = " << middle << endl;
+}
+
+// Основна функція завдання integer10
+void task_integer10() {
+    cout << "\n************* INTEGER10 *****************" << endl;
+
+    int N;
+    if (in_N(N)) {
+        cout << "N має бути тризначним цілим числом!" << endl;
+    } else {
+        int last = get_last_digit(N);
+        int middle = get_middle_digit(N);
+        out_res(last, middle);
+    }
+}
