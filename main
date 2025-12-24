@@ -43,6 +43,7 @@ int main() {
 void Mean(double X, double Y, double &AMean, double &GMean) {
     if (X <= 0 || Y <= 0) {
         cout << "Помилка: числа повинні бути додатні!" << endl;
+        return;
     }
     // Середнє арифметичне
     AMean = (X + Y) / 2;
